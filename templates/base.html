@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}Fitness App{% endblock %}</title>
+    <!-- Add your CSS files here -->
+  </head>
+  <body>
+    <div id="toolbar">
+      <a href="{% url 'exercise:create_exercise' %}">
+        <button>Edit</button>
+      </a>
+      <a href="{% url 'exercise:list_exercise' %}">
+        <button>List</button>
+      </a>
+    </div>
+
+    {% block content %}
+    <!-- This block will be overridden by child templates -->
+    {% endblock %}
+
+    <!-- Add your JavaScript files here -->
+  </body>
+</html>
