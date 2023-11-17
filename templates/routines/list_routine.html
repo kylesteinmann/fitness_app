@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block content %}
+<a href="{% url 'routine:create_routine' %}" class="btn btn-info text-white"
+  >Create New Routine</a
+>
+<div class="container mt-4">
+  {% for routine in routines %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ routine.name }}</h5>
+      <span class="card-text px-1"
+        >Exercises: {% for routine in routine.exercises.all %} {{ routine }},
+        {%endfor%}
+      </span>
+
+      <a
+        href="{% url 'routine:update_routine' routine.id %}"
+        class="btn btn-success"
+        >Edit</a
+      >
+      <a
+        href="{% url 'routine:delete_routine' routine.id %}"
+        class="btn btn-danger"
+        >Delete</a
+      >
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
