@@ -1,5 +1,5 @@
 from django import forms
-from .models import Exercise
+from .models import Exercise, Routine
 from datetime import datetime
 
 
@@ -15,3 +15,13 @@ class ExerciseForm(forms.ModelForm):
             'weight': forms.NumberInput(attrs={'class': 'form-control'}),
             'incremental_weight': forms.NumberInput(attrs={'class': 'form-control'}),
         }
+
+class RoutineForm(forms.ModelForm):
+    class Meta:
+        model = Routine
+        fields = ['name', 'exercises']
+
+    exercises = forms.ModelMultipleChoiceField(
+        queryset=Exercise.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
