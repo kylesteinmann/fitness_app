@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-86e39mw7gej+oyb6r*%ez!u14tat-kxx&e*%)yhd^7$94ka@42'
-
+SECRET_KEY = os.environ.get('SECRET_KEY')
+# django-insecure-86e39mw7gej+oyb6r*%ez!u14tat-kxx&e*%)yhd^7$94ka@42
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('debug','False').lower() == 'true'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(' ')
+
 
 
 # Application definition
@@ -84,6 +86,10 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+database_url = os.environ.get('DATABASE_URL')
+DATABASES["default"] = dj_database_url.parse(database_url)
+# postgres://fam_hub_user:NyRJa2ddn2NtRoH9Rugn3knc3B1uZ6uT@dpg-cm2vs5la73kc73enr6s0-a.oregon-postgres.render.com/fam_hub
 
 
 # Password validation
